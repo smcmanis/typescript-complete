@@ -1,10 +1,11 @@
-import { MatchReader } from './MatchReader';
+import { CsvFileReader } from './inheritance/CsvFileReader';
+import { MatchReader } from './inheritance/MatchReader';
 import { MatchResult } from './MatchResult';
 
-const reader = new MatchReader('football.csv');
-reader.read();
-
-const matches = reader.data;
+const reader = new CsvFileReader('football.csv');
+const matchReader = new MatchReader(reader);
+matchReader.load();
+const matches = matchReader.matches;
 
 let manUnitedWins = 0;
 for (let match of matches) {
