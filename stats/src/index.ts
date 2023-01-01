@@ -7,7 +7,10 @@ const matchReader = new MatchReader(reader);
 matchReader.load();
 const matches = matchReader.matches;
 
+// Variable named after a specific team
 let manUnitedWins = 0;
+
+// Analysis type is fixed
 for (let match of matches) {
   if (match[1] === 'Man United' && match[5] === MatchResult.HomeWin) {
     manUnitedWins++;
@@ -16,4 +19,5 @@ for (let match of matches) {
   }
 }
 
+// No ability to output the report in different formats
 console.log(`Man United won ${manUnitedWins} games`);
