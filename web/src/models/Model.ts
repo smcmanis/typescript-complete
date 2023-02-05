@@ -27,6 +27,8 @@ export class Model<T extends HasId> {
     private sync: Sync<T>
   ) {}
 
+  on = this.events.on;
+  trigger = this.events.trigger;
   get = this.attributes.get;
 
   set(update: T): void {
@@ -34,15 +36,13 @@ export class Model<T extends HasId> {
     this.events.trigger('change');
   }
 
-  on = this.events.on;
-
-  trigger = this.events.trigger;
-
   fetch(): void {
     const id = this.get('id');
+
     if (typeof id !== 'number') {
       throw new Error('Cannot fetch without an id');
     }
+
     this.sync.fetch(id).then((response: AxiosResponse): void => {
       this.set(response.data);
     });
@@ -53,6 +53,9 @@ export class Model<T extends HasId> {
       .save(this.attributes.getAll())
       .then((response: AxiosResponse): void => {
         this.trigger('save');
+      })
+      .catch(() => {
+        this.trigger('error');
       });
   }
 }

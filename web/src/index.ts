@@ -1,8 +1,14 @@
-import axios from 'axios';
 import { User } from './models/User';
+import { UserForm } from './views/UserForm';
 
-const user = User.buildUser({ id: 4 });
+const user = User.buildUser({ name: 'Boon', age: 20 });
 
-user.fetch();
+const root = document.getElementById('root');
 
-setTimeout(() => console.log(user), 4000);
+if (root) {
+  const userForm = new UserForm(root, user);
+
+  userForm.render();
+} else {
+  throw new Error('Root element not found');
+}

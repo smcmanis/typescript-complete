@@ -1,7 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
 import { Eventing } from './Eventing';
-import { Model } from './Model';
-import { User } from './User';
 
 export class Collection<T, K> {
   models: T[] = [];
@@ -18,8 +16,8 @@ export class Collection<T, K> {
   }
 
   fetch(): void {
-    axios.get(this.rootUrl).then((response: AxiosResponse): void => {
-      response.data.forEach((value: K): void => {
+    axios.get(this.rootUrl).then((response: AxiosResponse) => {
+      response.data.forEach((value: K) => {
         this.models.push(this.deserialize(value));
       });
 
